@@ -4,22 +4,36 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Vue 3</title>
   </head>
   <body>
     <script src="https://unpkg.com/vue@3"></script>
-    <div id="app">{{text}} - {{number}}</div>
+    <div id="app"></div>
     <script>
-      const vm = Vue.createApp({
+      const app = Vue.createApp({
         data() {
-          return {
-            text: "Hola Vue",
-            number: 123,
-          };
+          return {};
         },
-      }).mount("#app");
+        template: `
+        <div>
+          <v-layout>
+            <template v-slot:header>Titulo del contenido</template>
+            <template v-slot:content>Contenido del articulo</template>
+          </v-layout>          
+        </div>`,
+      });
 
-      console.log(vm);
+      app.component("v-layout", {
+        template: `
+        <header>
+          <h4><slot name="header"></slot></h4>
+        </header>
+        <div>
+          <slot name="content"></slot>
+        </div>`,
+      });
+
+      const vm = app.mount("#app");
     </script>
   </body>
 </html>
