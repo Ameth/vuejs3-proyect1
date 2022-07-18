@@ -16,26 +16,44 @@
             text: "Hola Vue",
           };
         },
+        provide() {
+          return {
+            contenido: this.text,
+          };
+        },
+        // provide: {
+        //   contenido: "Hola mundo de Vue",
+        // },
         template: `
         <div>
           <p>{{text}}</p>
-          <v-hijo ref="mihijo" :text="text" />  
+          <v-hijo />  
         </div>
         `,
       });
 
       app.component("v-hijo", {
-        props: ["text"],
-        template: `<p>Contiene: <strong>{{text}}</strong></p>`,
+        template: `
+        <v-nieto />`,
+      });
+
+      app.component("v-nieto", {
+        inject: {
+          contenido: {
+            from: "contenido",
+          },
+          // Para darle un alias
+          // micontenido: {
+          //   from: "contenido",
+          // },
+        },
+        template: `
+        <div>
+          {{contenido}}
+        </div>`,
       });
 
       const vm = app.mount("#app");
-      console.log(vm);
-      console.log(vm.$root);
-      console.log(vm.$el);
-      console.log(vm.$refs);
-      console.log(vm.$refs.mihijo);
-      console.log(vm.$props);
     </script>
   </body>
 </html>

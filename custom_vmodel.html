@@ -16,26 +16,33 @@
             text: "Hola Vue",
           };
         },
+        methods: {
+          // refresh(valor, nombre, apellido) {
+          //   this.text = valor + " " + nombre + " " + apellido;
+          // },
+        },
         template: `
         <div>
           <p>{{text}}</p>
-          <v-hijo ref="mihijo" :text="text" />  
+          <v-input v-model:valor="text" />  
         </div>
         `,
       });
 
-      app.component("v-hijo", {
-        props: ["text"],
-        template: `<p>Contiene: <strong>{{text}}</strong></p>`,
+      app.component("v-input", {
+        props: {
+          valor: String,
+        },
+        methods: {
+          cambiar(e) {
+            this.$emit("update:valor", e.target.value, "ameth", "ordonez");
+          },
+        },
+        template: `
+        <input type="text" :value="valor" @input="cambiar" />`,
       });
 
       const vm = app.mount("#app");
-      console.log(vm);
-      console.log(vm.$root);
-      console.log(vm.$el);
-      console.log(vm.$refs);
-      console.log(vm.$refs.mihijo);
-      console.log(vm.$props);
     </script>
   </body>
 </html>

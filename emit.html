@@ -20,7 +20,8 @@
           eliminar(texto, index) {
             // this.lists = this.lists.filter((item, i) => i !== index);
             // this.lists.splice(index, 1);
-            this.lists[index] = `${this.lists[index]} ${texto}`;
+            // this.lists[index] = `${this.lists[index]} ${texto}`;
+            console.log(texto, index);
           },
         },
         template: `
@@ -28,7 +29,7 @@
           <v-item 
             v-for="(item, index) in lists" 
             :text="item"
-            @remove="eliminar(texto, index)"
+            @remove="eliminar(index)"
           />
         </ul>`,
       });
